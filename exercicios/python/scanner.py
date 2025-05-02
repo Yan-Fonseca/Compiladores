@@ -31,7 +31,7 @@ class Scanner:
             self.number()
         elif character.isalpha():
             self.identifier()
-        elif character == ' ':
+        elif character == ' ' or character == '\n' or character == '\t':
             pass
         else:
             print(f'[ERROR] caractere Inválido: {character}')
