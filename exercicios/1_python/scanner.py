@@ -1,4 +1,4 @@
-from token import Token
+from tokens import Token
 
 class Scanner:
     def __init__(self, data):
@@ -7,32 +7,34 @@ class Scanner:
         self.current = 0
     
     def scan_tokens(self):
-        while !self.is_at_end():
+        while not self.is_at_end():
             self.scan_token()
         
-        self.tokens.push(Token("EOF", "EOF"))
+        self.tokens.append(Token("EOF", "EOF"))
     
-    def scan_token():
+    def scan_token(self):
         character = self.advance()
 
         if character == '=':
-            self.tokens.push(Token(character, "ASSIGN"))
+            self.tokens.append(Token(character, "ASSIGN"))
         elif character == ';':
-            self.tokens.push(Token(character, "SEMICOLON"))
+            self.tokens.append(Token(character, "SEMICOLON"))
         elif character == '+':
-            self.tokens.push(Token(character, "PLUS"))
+            self.tokens.append(Token(character, "PLUS"))
         elif character == '-':
-            self.tokens.push(Token(character, "MINUS"))
+            self.tokens.append(Token(character, "MINUS"))
         elif character == '*':
-            self.tokens.push(Token(character, "TIMES"))
+            self.tokens.append(Token(character, "TIMES"))
         elif character == '/':
-            self.tokens.push(Token(character, "SLASH"))
+            self.tokens.append(Token(character, "SLASH"))
         elif character.isdigit():
             self.number()
         elif character.isalpha():
             self.identifier()
+        elif character == ' ':
+            pass
         else:
-            print("[ERROR] caractere Inválido")
+            print(f'[ERROR] caractere Inválido: {character}')
     
     def number(self):
         num = ""
@@ -40,22 +42,22 @@ class Scanner:
         while self.data[self.current].isdigit():
             num += self.advance()
         
-        self.tokens.push(Token(num, "NUMBER"))
+        self.tokens.append(Token(num, "NUMBER"))
     
     def identifier(self):
         ident = ""
         ident += self.data[self.current - 1]
-        while self.data[self.current].isdigit():
+        while self.data[self.current].isalnum():
             ident += self.advance()
         
-        self.tokens.push(Token(ident, "IDENTIFIER"))
+        self.tokens.append(Token(ident, "IDENTIFIER"))
 
     def advance(self):
         self.current += 1
         return self.data[self.current-1]
     
     def is_at_end(self):
-        return self.current == len(self.data) - 1
+        return self.current == len(self.data)
 
     def get_tokens(self):
         return self.tokens

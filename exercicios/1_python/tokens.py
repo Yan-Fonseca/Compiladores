@@ -11,7 +11,7 @@ class Token:
     def get_lexer(self):
         return self.lexer
     
-    def set_next(self, token):
+    def set_next(self, next):
         self.next = next
     
     def get_next(self):
