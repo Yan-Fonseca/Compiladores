@@ -39,7 +39,7 @@ class Scanner:
     def number(self):
         num = ""
         num += self.data[self.current - 1]
-        while self.data[self.current].isdigit():
+        while not self.is_at_end() and self.data[self.current].isdigit():
             num += self.advance()
         
         self.tokens.append(Token(num, "NUMBER"))
@@ -47,7 +47,7 @@ class Scanner:
     def identifier(self):
         ident = ""
         ident += self.data[self.current - 1]
-        while self.data[self.current].isalnum():
+        while not self.is_at_end() and self.data[self.current].isalnum():
             ident += self.advance()
         
         self.tokens.append(Token(ident, "IDENTIFIER"))
